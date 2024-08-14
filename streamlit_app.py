@@ -88,6 +88,18 @@ if 'Stars' in data_csv.columns:
     fig = px.line(data_csv, y='Stars', title='Line plot of Stars', width=1000, height=600)
     st.plotly_chart(fig)
 
+    # Tính toán số lượng giá trị trong từng hạng mục 'Stars'
+    stars_count = df['Stars'].value_counts().reset_index()
+    stars_count.columns = ['Stars', 'count']
+
+# Định nghĩa ngưỡng giá trị nhỏ
+    threshold = 5  # Bạn có thể điều chỉnh ngưỡng này
+
+# Nhóm các giá trị nhỏ hơn ngưỡng thành 'Others'
+    stars_count['Stars'] = stars_count['Stars'].apply(lambda x: x if stars_count[stars_count['Stars'] == x]['count'].values[0] >= threshold else 'Others')
+
+# Gộp nhóm 'Others'
+    stars_count = stars_count.groupby('Stars').sum().reset_index()
     st.write("Pie chart of Stars:")
     fig = px.pie(stars_count, names='Stars', values='count', title='Pie chart of Stars', width=1000, height=600)
     st.plotly_chart(fig)
