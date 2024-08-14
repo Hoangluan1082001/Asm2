@@ -89,7 +89,7 @@ if 'Stars' in data_csv.columns:
     st.plotly_chart(fig)
 
     # Tính toán số lượng giá trị trong từng hạng mục 'Stars'
-    stars_count = df['Stars'].value_counts().reset_index()
+    stars_count = data_csv['Stars'].value_counts().reset_index()
     stars_count.columns = ['Stars', 'count']
 
 # Định nghĩa ngưỡng giá trị nhỏ
